@@ -1,0 +1,14 @@
+﻿<Window x:Class="e_CPF_Deploy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:e_CPF_Deploy"
+        mc:Ignorable="d"
+        Title="PMI Certificate Manager" Height="172.353" Width="415.815" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="NoResize">
+    <Grid>
+        <Button x:Name="b_Import" Content="Import" Margin="30,25,228,0" VerticalAlignment="Top" Click="B_Import_Click" Height="90" FontSize="24" />
+        <Button x:Name="b_Export" Content=" Backup&#xA;to Server" Margin="228,25,30,0" VerticalAlignment="Top" Click="B_Export_Click" Height="90" FontSize="24"/>
+
+    </Grid>
+</Window>
