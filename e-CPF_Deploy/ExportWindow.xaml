@@ -5,14 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:e_CPF_Deploy"
         mc:Ignorable="d"
-        Title="Export Certificate" Height="300" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Label x:Name="label" Content="Certificate Path:" HorizontalAlignment="Left" Margin="40,38,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label1" Content="Password:" HorizontalAlignment="Left" Margin="40,96,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txt_filePath" Height="23" Margin="138,38,40,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True"/>
-        <PasswordBox x:Name="pwdbox" Margin="137,96,40,0" VerticalAlignment="Top" Height="26" VerticalContentAlignment="Center"/>
-        <Button x:Name="b_selectFile" Content="Select Certificate" Margin="40,156,314,40" Click="B_selectFile_Click" FontSize="18"/>
-        <Button x:Name="b_exportCertificate" Content="Export Certificate" Margin="314,156,40,40" Click="B_exportCertificate_Click" FontSize="18"/>
+        Title="Export Certificate"
+        Height="370"
+        Width="390"
+        WindowStartupLocation="CenterOwner"
+        MouseDown="Window_MouseDown"
+        Style="{StaticResource DefaultWindowStyle}">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="closeButton"
+                Content="X"
+                Grid.Column="1"
+                Grid.Row="0"
+                Click="Close_Click"
+                Style="{StaticResource closeButtons}" Width="39" Height="31"/>
+
+        <Label x:Name="certPathLabel"
+               Content="File Path:"
+               Grid.Column="0"
+               Grid.Row="1"
+               Style="{StaticResource ExportWindowLabel}"/>
+
+        <TextBox x:Name="txt_filePath"
+                 Grid.Column="1"
+                 Grid.Row="1"
+                 Text="file.pfx"/>
+
+        <Label x:Name="certPwdLabel"
+               Content="Password:"
+               Grid.Column="0"
+               Grid.Row="2"
+               Style="{StaticResource ExportWindowLabel}"/>
+
+        <PasswordBox x:Name="pwdbox"
+                 Grid.Column="1"
+                 Grid.Row="2"/>
+
+
+        <Button x:Name="b_selectFile"
+                Content="Select Certificate"
+                Grid.Column="0"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                Click="B_selectFile_Click"
+                Style="{StaticResource ExportWindowButton}"/>
+
+        <Button x:Name="b_exportCertificate"
+                Content="Export Certificate"
+                Grid.Column="0"
+                Grid.Row="5"
+                Grid.ColumnSpan="2"
+                Click="B_exportCertificate_Click"
+                Style="{StaticResource ExportWindowButton}"/>
+        
     </Grid>
 </Window>

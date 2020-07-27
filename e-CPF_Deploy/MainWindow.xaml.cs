@@ -13,6 +13,8 @@ namespace e_CPF_Deploy
             InitializeComponent();
         }
 
+        //Import button actions
+
         private async void B_Import_Click(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
@@ -20,10 +22,33 @@ namespace e_CPF_Deploy
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
+        //Export button actions
         private void B_Export_Click(object sender, RoutedEventArgs e)
         {
             var ExportWindow = new ExportWindow();
             ExportWindow.ShowDialog();
         }
+
+
+
+        #region Generic Event Handlers
+
+        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+        #endregion
+
     }
 }

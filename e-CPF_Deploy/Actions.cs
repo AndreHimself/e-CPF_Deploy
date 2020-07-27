@@ -49,66 +49,70 @@ namespace e_CPF_Deploy
         }
 
 
-        public static Answer ExportCert(string filePath, System.Security.SecureString pwd)
+        public static async Task<Answer> ExportCertAsync(string filePath, System.Security.SecureString pwd)
         {
+            Answer returnValue = Answer.Success;
+
             try
             {
-                X509Certificate2 cert = new X509Certificate2(filePath, pwd, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.UserKeySet | X509KeyStorageFlags.Exportable);
+                await Task.Run(() => {
 
-                SetCurrentUser();
+                    X509Certificate2 cert = new X509Certificate2(filePath, pwd, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.UserKeySet | X509KeyStorageFlags.Exportable);
 
-                /*
-                if (cert.Issuer != ISSUER)
-                {
-                    return Answer.InvalidCert;
-                }
-                if (!IsCertOwnedByLoggedOnUser(cert.FriendlyName))
-                {
-// return Answer.InvalidUser;
-                }
-                if (!cert.HasPrivateKey)
-                {
-                    return Answer.NoPrivateKey;
-                }
-                if (!FolderExists())
-                {
-                    return Answer.FolderNotCreated;
-                }
-                */
+                    SetCurrentUser();
 
-                Runspace rs = RunspaceFactory.CreateRunspace();
-                rs.ThreadOptions = PSThreadOptions.UseCurrentThread;
-                rs.Open();
+                    if (cert.Issuer != ISSUER)
+                    {
+                        returnValue = Answer.InvalidCert;
+                    }
+                    if (IsCertOwnedByLoggedOnUser(cert.FriendlyName) == false)
+                    {
+                        returnValue = Answer.InvalidUser;
+                    }
+                    if (cert.HasPrivateKey == false)
+                    {
+                        returnValue = Answer.NoPrivateKey;
+                    }
+                    if (FolderExists() == false)
+                    {
+                        returnValue = Answer.FolderNotCreated;
+                    }
 
-                PowerShell ps = PowerShell.Create();
-                ps.Runspace = rs;
+                    if (returnValue == Answer.Success)
+                    {
+                        Runspace rs = RunspaceFactory.CreateRunspace();
+                        rs.ThreadOptions = PSThreadOptions.UseCurrentThread;
+                        rs.Open();
 
-                ps.AddCommand("Export-PfxCertificate");
-                ps.AddParameter("-Cert", cert);
-                ps.AddParameter("-FilePath", certPath);
-                ps.AddParameter("-ProtectTo", $"PMI\\{Environment.UserName}");
-                ps.AddParameter("-ChainOption", "BuildChain");
+                        PowerShell ps = PowerShell.Create();
+                        ps.Runspace = rs;
 
-                ps.Invoke();
-                rs.Close();
+                        ps.AddCommand("Export-PfxCertificate");
+                        ps.AddParameter("-Cert", cert);
+                        ps.AddParameter("-FilePath", certPath);
+                        ps.AddParameter("-ProtectTo", $"PMI\\{Environment.UserName}");
+                        ps.AddParameter("-ChainOption", "BuildChain");
 
-                if (CertExists())
-                {
-                    File.Delete(filePath);
-                }
+                        ps.Invoke();
+                        rs.Close();
 
-                return Answer.Success;
+                        if (CertExists())
+                        {
+                            File.Delete(filePath);
+                        }
+                    }
+                });
             }
             catch (System.Security.Cryptography.CryptographicException)
             {
-                return Answer.InvalidPassword;
+                returnValue = Answer.InvalidPassword;
             }
             catch (Exception)
             {
-                throw new NotImplementedException();
+                returnValue = Answer.NoNetwork;
                 //Trocar nome da folder e mudar permissionamento para validar error handling que falta.
             }
-
+            return returnValue;
         }
 
         #endregion

@@ -5,10 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:e_CPF_Deploy"
         mc:Ignorable="d"
-        Title="PMI Certificate Manager" Height="172.353" Width="415.815" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="NoResize">
-    <Grid>
-        <Button x:Name="b_Import" Content="Import" Margin="30,25,228,0" VerticalAlignment="Top" Click="B_Import_Click" Height="90" FontSize="24" />
-        <Button x:Name="b_Export" Content=" Backup&#xA;to Server" Margin="228,25,30,0" VerticalAlignment="Top" Click="B_Export_Click" Height="90" FontSize="24"/>
+        
+        Title="Cert Manager"
+        Height="385"
+        Width="340"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
+        Style="{StaticResource DefaultWindowStyle}">
+    
+    <Canvas>
+        <Button x:Name="minimizeButton"
+                Content="–"
+                Canvas.Right="0"
+                Canvas.Top="0"
+                Click="MinimizeButton_Click"
+                Style="{StaticResource closeButtons}"
+                Canvas.Left="265"
+                Height="32" Width="35"/>
 
-    </Grid>
+        <Button x:Name="closeButton"
+                Content="×"
+                Canvas.Right="0"
+                Click="Close_Click"
+                Style="{StaticResource closeButtons}"
+                 Canvas.Left="300"
+                Width="40"
+                Height="32"/>
+
+        <StackPanel Canvas.Top="1"
+                    Width="340"
+                    Height="384">
+
+            <Label Content="e-CPF Manager"
+               Style="{StaticResource MainWindowLabel}"/>
+
+            <Button x:Name="b_Import"
+                Content="Import Certificate"
+                Grid.Column="0"
+                Grid.Row="0"
+                Click="B_Import_Click"
+                Style="{StaticResource MainWindowButton}"
+                TabIndex="1"/>
+
+            <Button x:Name="b_Export"
+                    Content="Export Certificate"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Click="B_Export_Click"
+                    Style="{StaticResource MainWindowButton}"
+                    TabIndex="2">
+            </Button>
+        </StackPanel>
+    </Canvas>
 </Window>

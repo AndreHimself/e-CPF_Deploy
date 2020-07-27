@@ -11,6 +11,7 @@ namespace e_CPF_Deploy
             {
                 case Answer.Success:
                     MessageBox.Show(message, "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Application.Current.Shutdown();
                     break;
 
                 case Answer.InvalidUser:
@@ -30,7 +31,7 @@ namespace e_CPF_Deploy
                     break;
 
                 case Answer.FolderNotCreated:
-                    MessageBox.Show("Please ask IS to create your personal storage in the server.", "User storage not found", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Check your network connection or ask IT to create your personal storage in the server.", "Network or storage issue", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
 
                 case Answer.InsufficientRights:

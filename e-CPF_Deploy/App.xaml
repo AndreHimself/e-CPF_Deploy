@@ -4,6 +4,163 @@
              xmlns:local="clr-namespace:e_CPF_Deploy"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!--#region Static Resources -->
+        <SolidColorBrush x:Key="HighLightColor" Color="#FF15B9A5"/>
+        <SolidColorBrush x:Key="HighLight2Color" Color="#FF24F5DC"/>
+        <SolidColorBrush x:Key="VeryLightColor" Color="#FFE7E7E7"/>
+        <SolidColorBrush x:Key="LightColor" Color="#FFAAAAA5"/>
+        <SolidColorBrush x:Key="MediumGreyColor" Color="#FF2F3132"/>
+        <SolidColorBrush x:Key="DarkerGreyColor" Color="#FF222424"/>
+        <SolidColorBrush x:Key="DarkColor" Color="#FF000000"/>
+
+        <LinearGradientBrush x:Key="LinearGradientBackground" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FF202020" Offset="0"/>
+            <GradientStop Color="#FF000000" Offset="1"/>
+        </LinearGradientBrush>
+        <!--#endregion-->
+
+
+        <Style TargetType="Window" x:Key="DefaultWindowStyle">
+            <Setter Property="Background" Value="{StaticResource LinearGradientBackground}"/>
+            <Setter Property="ResizeMode" Value="NoResize"/>
+            <Setter Property="WindowStyle" Value="None"/>
+        </Style>
+
+
+        <!--#region BUTTONS -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource DarkerGreyColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource HighLightColor}"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Width="auto"
+                                              Height="auto"
+                                              Margin="20"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource HighLight2Color}"/>
+                    <Setter Property="Background" Value="{StaticResource MediumGreyColor}"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+
+        <Style TargetType="Button" x:Key="MainWindowButton" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Padding" Value="0, 20"/>
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="Margin" Value="0, 10, 0, 20"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ExportWindowButton" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Width" Value="300"/>
+        </Style>
+
+
+        <Style TargetType="Button" x:Key="closeButtons">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource LightColor}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Width="auto"
+                                              Height="auto"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource VeryLightColor}"/>
+                    <Setter Property="Background" Value="{StaticResource MediumGreyColor}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--#endregion-->
+
+
+        <!--#region LABELS -->
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource LightColor}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="MainWindowLabel" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{StaticResource VeryLightColor}"/>
+            <Setter Property="Margin" Value="20, 30"/>
+            <Setter Property="BorderThickness" Value="0, 0, 0, 2"/>
+            <Setter Property="BorderBrush" Value="{StaticResource LightColor}"/>
+            <Setter Property="Padding" Value="0, 20, 0, 40"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ExportWindowLabel" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <!--#endregion-->
+
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource VeryLightColor}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource LightColor}"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="4, 0, 0, -5"/>
+            <Setter Property="Margin" Value="13, 0, 0, 8"/>
+            <Setter Property="CaretBrush" Value="{StaticResource VeryLightColor}"/>
+
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource VeryLightColor}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0, 0, 0, 1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource LightColor}"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="4, 0, 0, -5"/>
+            <Setter Property="Margin" Value="13, 0, 0, 8"/>
+            <Setter Property="CaretBrush" Value="{StaticResource VeryLightColor}"/>
+
+        </Style>
     </Application.Resources>
 </Application>

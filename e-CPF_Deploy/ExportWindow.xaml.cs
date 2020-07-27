@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Windows;
-
+using System.Windows.Input;
 
 namespace e_CPF_Deploy
 {
@@ -18,19 +18,27 @@ namespace e_CPF_Deploy
 
         private void B_selectFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog filePath = new OpenFileDialog();
-            filePath.Title = "Select new .pfx certificate";
-            filePath.InitialDirectory = Environment.SpecialFolder.Desktop.ToString();
-            filePath.Filter = "Certificate (*.pfx)| *.pfx";
-            filePath.FilterIndex = 1;
-            filePath.RestoreDirectory = true;
+            OpenFileDialog filePath = new OpenFileDialog
+            {
+                Title = "Select new .pfx certificate",
+                InitialDirectory = Environment.SpecialFolder.Desktop.ToString(),
+                Filter = "Certificate (*.pfx)| *.pfx",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
             filePath.ShowDialog();
 
             txt_filePath.Text = !string.IsNullOrWhiteSpace(filePath.FileName) ? filePath.FileName : txt_filePath.Text;
         }
 
-        private void B_exportCertificate_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private async void B_exportCertificate_Click(object sender, RoutedEventArgs e)
         {
             if (pwdbox.Password == string.Empty)
             {
@@ -38,11 +46,15 @@ namespace e_CPF_Deploy
             }
             else
             {
-                OutputManager.Display(Actions.ExportCert(txt_filePath.Text, pwdbox.SecurePassword), "Your certificate has been exported!");
+                Mouse.OverrideCursor = Cursors.Wait;
+                OutputManager.Display(await Actions.ExportCertAsync(txt_filePath.Text, pwdbox.SecurePassword), "Your certificate has been exported!");
+                Mouse.OverrideCursor = Cursors.Arrow;
+                Application.Current.Shutdown();
             }
         }
 
-        public void CloseExportWindow()
+
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
