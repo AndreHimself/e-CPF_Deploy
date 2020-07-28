@@ -43,7 +43,7 @@ namespace e_CPF_Deploy
                     break;
 
                 case Answer.InvalidPassword:
-                    MessageBox.Show("Incorrect password, please recheck.", "Invalid Password", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Incorrect password, please try again.", "Invalid Password", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
 
                 case Answer.MissingPassword:

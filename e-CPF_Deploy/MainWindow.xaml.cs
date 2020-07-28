@@ -26,6 +26,7 @@ namespace e_CPF_Deploy
         private void B_Export_Click(object sender, RoutedEventArgs e)
         {
             var ExportWindow = new ExportWindow();
+            ExportWindow.Owner = this;
             ExportWindow.ShowDialog();
         }
 

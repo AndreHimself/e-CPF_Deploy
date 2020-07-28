@@ -12,15 +12,14 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
         Style="{StaticResource DefaultWindowStyle}">
-    
+
     <Canvas>
         <Button x:Name="minimizeButton"
                 Content="–"
                 Canvas.Right="0"
-                Canvas.Top="0"
                 Click="MinimizeButton_Click"
                 Style="{StaticResource closeButtons}"
-                Canvas.Left="265"
+                Canvas.Left="270"
                 Height="32" Width="35"/>
 
         <Button x:Name="closeButton"
@@ -28,8 +27,8 @@
                 Canvas.Right="0"
                 Click="Close_Click"
                 Style="{StaticResource closeButtons}"
-                 Canvas.Left="300"
-                Width="40"
+                 Canvas.Left="305"
+                Width="35"
                 Height="32"/>
 
         <StackPanel Canvas.Top="1"

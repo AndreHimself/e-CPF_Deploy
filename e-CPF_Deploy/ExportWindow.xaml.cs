@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Linq;
+using System.Windows.Media;
 
 namespace e_CPF_Deploy
 {
@@ -13,6 +15,7 @@ namespace e_CPF_Deploy
         public ExportWindow()
         {
             InitializeComponent();
+            B_selectFile_Click(this, null);
 
         }
 
@@ -24,12 +27,17 @@ namespace e_CPF_Deploy
                 InitialDirectory = Environment.SpecialFolder.Desktop.ToString(),
                 Filter = "Certificate (*.pfx)| *.pfx",
                 FilterIndex = 1,
-                RestoreDirectory = true
+                //RestoreDirectory = true
             };
 
             filePath.ShowDialog();
 
-            txt_filePath.Text = !string.IsNullOrWhiteSpace(filePath.FileName) ? filePath.FileName : txt_filePath.Text;
+            if (string.IsNullOrWhiteSpace(filePath.FileName) == false)
+            {
+                txt_filePath.Text = filePath.FileName.Split('\\').Last();
+                pwdbox.Focus();
+                pwdbox_PasswordChanged(this, null);
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -47,9 +55,19 @@ namespace e_CPF_Deploy
             else
             {
                 Mouse.OverrideCursor = Cursors.Wait;
-                OutputManager.Display(await Actions.ExportCertAsync(txt_filePath.Text, pwdbox.SecurePassword), "Your certificate has been exported!");
-                Mouse.OverrideCursor = Cursors.Arrow;
-                Application.Current.Shutdown();
+                var result = await Actions.ExportCertAsync(txt_filePath.Text, pwdbox.SecurePassword);
+                
+                if (result == Answer.InvalidPassword)
+                {
+                    OutputManager.Display(result, "Wrong password, try again.");
+                    Mouse.OverrideCursor = Cursors.Arrow;
+                }
+                else
+                {
+                    OutputManager.Display(result, "Your certificate has been exported!");
+                    Mouse.OverrideCursor = Cursors.Arrow;
+                    Application.Current.Shutdown();
+                }
             }
         }
 
@@ -57,6 +75,26 @@ namespace e_CPF_Deploy
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void pwdbox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (pwdbox.Password.Length > 0 &&
+                string.IsNullOrEmpty(txt_filePath.Text) == false)
+            {
+                b_exportCertificate.IsEnabled = true;
+                b_exportCertificate.Foreground = Application.Current.TryFindResource("HighLightColor") as Brush;
+            }
+            else
+            {
+                b_exportCertificate.Foreground = Application.Current.TryFindResource("MediumGreyColor") as Brush;
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return && (b_exportCertificate.IsEnabled == true))
+                B_exportCertificate_Click(this, null);
         }
     }
 }

@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:e_CPF_Deploy"
         mc:Ignorable="d"
         Title="Export Certificate"
@@ -10,7 +10,8 @@
         Width="390"
         WindowStartupLocation="CenterOwner"
         MouseDown="Window_MouseDown"
-        Style="{StaticResource DefaultWindowStyle}">
+        Style="{StaticResource DefaultWindowStyle}"
+        KeyDown="Window_KeyDown">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <Button x:Name="closeButton"
-                Content="X"
+                Content="×"
                 Grid.Column="1"
                 Grid.Row="0"
                 Click="Close_Click"
@@ -42,7 +43,7 @@
         <TextBox x:Name="txt_filePath"
                  Grid.Column="1"
                  Grid.Row="1"
-                 Text="file.pfx"/>
+                 IsReadOnly="True"/>
 
         <Label x:Name="certPwdLabel"
                Content="Password:"
@@ -51,8 +52,9 @@
                Style="{StaticResource ExportWindowLabel}"/>
 
         <PasswordBox x:Name="pwdbox"
-                 Grid.Column="1"
-                 Grid.Row="2"/>
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    PasswordChanged="pwdbox_PasswordChanged" />
 
 
         <Button x:Name="b_selectFile"
@@ -69,7 +71,9 @@
                 Grid.Row="5"
                 Grid.ColumnSpan="2"
                 Click="B_exportCertificate_Click"
-                Style="{StaticResource ExportWindowButton}"/>
-        
+                
+                Foreground="{StaticResource MediumGreyColor}"
+                Style="{StaticResource ExportWindowButton}" IsEnabled="False"/>
+
     </Grid>
 </Window>
