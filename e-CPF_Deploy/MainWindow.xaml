@@ -11,6 +11,7 @@
         Width="340"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
+        KeyDown="Window_KeyDown"
         Style="{StaticResource DefaultWindowStyle}">
 
     <Canvas>

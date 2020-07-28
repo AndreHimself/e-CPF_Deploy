@@ -94,7 +94,13 @@ namespace e_CPF_Deploy
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return && (b_exportCertificate.IsEnabled == true))
+            {
                 B_exportCertificate_Click(this, null);
+            }
+            else if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }
