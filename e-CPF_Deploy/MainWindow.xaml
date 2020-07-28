@@ -40,7 +40,7 @@
                Style="{StaticResource MainWindowLabel}"/>
 
             <Button x:Name="b_Import"
-                Content="Import Certificate"
+                Content="Import from Server"
                 Grid.Column="0"
                 Grid.Row="0"
                 Click="B_Import_Click"
@@ -48,7 +48,7 @@
                 TabIndex="1"/>
 
             <Button x:Name="b_Export"
-                    Content="Export Certificate"
+                    Content="Backup to Server"
                     Grid.Column="2"
                     Grid.Row="0"
                     Click="B_Export_Click"

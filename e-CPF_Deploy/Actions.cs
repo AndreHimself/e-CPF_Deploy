@@ -31,10 +31,11 @@ namespace e_CPF_Deploy
 
                     X509Certificate2 cert = new X509Certificate2(certPath, string.Empty, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.UserKeySet);
 
-                    X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-                    store.Open(OpenFlags.ReadWrite);
-                    store.Add(cert);
-                    store.Close();
+                    using (X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+                    {
+                        store.Open(OpenFlags.ReadWrite);
+                        store.Add(cert);
+                    }
                 });
 
                 return Answer.Success;

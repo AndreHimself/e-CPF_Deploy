@@ -15,7 +15,6 @@ namespace e_CPF_Deploy
         public ExportWindow()
         {
             InitializeComponent();
-            B_selectFile_Click(this, null);
 
         }
 
