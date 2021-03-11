@@ -13,7 +13,7 @@ namespace e_CPF_Deploy
         #region Constants declaration
 
         private const string ISSUER = "CN=AC Certisign RFB G5, OU=Secretaria da Receita Federal do Brasil - RFB, O=ICP-Brasil, C=BR";
-        public static readonly string certDir = string.Format(@"\\pmibrhqtfnp01\ctest$\{0}\", Environment.UserName);
+        public static readonly string certDir = string.Format(@"\\PMIBRSPOFNP02\eCPF$\{0}\", Environment.UserName);
         public static readonly string certPath = certDir + Environment.UserName + ".pfx";
 
         public static UserPrincipal User { get; private set; }
